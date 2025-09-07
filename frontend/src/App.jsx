@@ -1,5 +1,5 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 
 // pages
@@ -8,22 +8,55 @@ import Dashboard from "./pages/Dashboard";
 import MyHabbit from "./pages/MyHabbit";
 import Community from "./pages/Community";
 import Achievements from "./pages/Achievements";
-import HeroSection from "./components/HeroSection";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
+import Footer from "./components/Footer";
 
 const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   return (
     <div className="min-h-screen bg-gray-100">
-      <Navbar />
-      <Home/>
-      <div className="p-6">
+      <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
+      <div className="p-1">
         <Routes>
+          {/* Public */}
           <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/myhabit" element={<MyHabbit />} />
-          <Route path="/community" element={<Community />} />
-          <Route path="/achievements" element={<Achievements />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword/>} />
+
+          {/* Protected */}
+          <Route
+            path="/dashboard"
+            element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/myhabit"
+            element={isAuthenticated ? <MyHabbit /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/community"
+            element={isAuthenticated ? <Community /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/achievements"
+            element={isAuthenticated ? <Achievements /> : <Navigate to="/login" />}
+          />
+
+          {/* 404 */}
+          <Route
+            path="*"
+            element={
+              <h1 className="text-3xl text-center mt-20">404: Page Not Found</h1>
+            }
+          />
         </Routes>
       </div>
+      <Footer/>
     </div>
   );
 };

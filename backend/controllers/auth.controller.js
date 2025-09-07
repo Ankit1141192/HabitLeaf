@@ -80,19 +80,55 @@ const forgotPasswordControllers = async (req, res) => {
     const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: `"HabitLeaf Team" <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: "Reset Your Password - HabbitLeaf",
+      subject: "Reset Your Password - HabitLeaf",
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
-          <h2>Password Reset Request</h2>
-          <p>Hello ${user.name},</p>
-          <p>Click below to reset your password:</p>
-          <a href="${resetUrl}" style="background-color:#6c63ff;color:white;padding:10px 20px;border-radius:5px;text-decoration:none;">Reset Password</a>
-          <p>This link expires in <b>1 hour</b>.</p>
+  <div style="font-family: Arial, sans-serif; background-color:#f9fafb; padding:30px;">
+    <div style="max-width:600px; margin:auto; background:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+      
+      <!-- Header -->
+      <div style="background:linear-gradient(90deg,#16a34a,#22c55e); padding:20px; text-align:center;">
+        <h1 style="color:#ffffff; margin:0; font-size:22px; font-weight:600;">🌱 HabitLeaf</h1>
+      </div>
+
+      <!-- Body -->
+      <div style="padding:30px; color:#374151;">
+        <h2 style="margin-top:0; font-size:20px; color:#111827;">Password Reset Request</h2>
+        <p style="font-size:15px; line-height:1.6;">Hello <b>${user.name}</b>,</p>
+        <p style="font-size:15px; line-height:1.6;">
+          We received a request to reset your HabitLeaf account password.  
+          If this was you, click the button below to set a new password:
+        </p>
+        
+        <!-- Button -->
+        <div style="text-align:center; margin:30px 0;">
+          <a href="${resetUrl}" 
+            style="background-color:#16a34a; color:#ffffff; padding:12px 28px; border-radius:6px; text-decoration:none; font-weight:600; font-size:15px; display:inline-block;">
+            Reset Password
+          </a>
         </div>
-      `,
+        
+        <p style="font-size:14px; line-height:1.6; color:#6b7280;">
+          ⚠️ This link will expire in <b>1 hour</b>.  
+          If you didn’t request this, please ignore this email.
+        </p>
+        
+        <p style="font-size:14px; margin-top:25px;">Best regards, <br/>🌿 The HabitLeaf Team</p>
+      </div>
+
+      <!-- Footer -->
+      <div style="background:#f3f4f6; padding:15px; text-align:center; font-size:12px; color:#6b7280;">
+        © ${new Date().getFullYear()} HabitLeaf, Inc. All rights reserved.  
+        <br/>
+        Need help? <a href="mailto:support@habitleaf.com" style="color:#16a34a; text-decoration:none;">Contact Support</a>
+      </div>
+    </div>
+  </div>
+  `,
     };
+
+
 
     transporter.sendMail(mailOptions, (err) => {
       if (err) {
