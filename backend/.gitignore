@@ -7,18 +7,26 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Dependency directory (DO NOT push to GitHub)
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+build/
+
+# Environment files
 .env
-.env.*.local
-.env.test.local
-.env*
+.env.*
+*.local
+
+# Test coverage reports
+coverage/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
