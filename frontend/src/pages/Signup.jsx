@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import bg from "../assets/herosection.jpg";
+import showEyes from "../assets/eye-show.svg";
+import hideEyes from "../assets/eye-hide.svg";
 
 const Signup = () => {
   const [message, setMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
@@ -12,7 +15,7 @@ const Signup = () => {
     const data = Object.fromEntries(formData);
 
     try {
-      const response = await fetch("http://localhost:4000/auth/signup", {
+      const response = await fetch(`https://habitleaf.onrender.com/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -65,6 +68,7 @@ const Signup = () => {
         )}
 
         <form onSubmit={handleSignup} className="space-y-4">
+          {/* Name */}
           <div>
             <label
               htmlFor="name"
@@ -81,6 +85,7 @@ const Signup = () => {
             />
           </div>
 
+          {/* Email */}
           <div>
             <label
               htmlFor="email"
@@ -97,7 +102,8 @@ const Signup = () => {
             />
           </div>
 
-          <div>
+          {/* Password with show/hide */}
+          <div className="relative">
             <label
               htmlFor="password"
               className="block text-sm font-medium text-gray-700"
@@ -105,14 +111,21 @@ const Signup = () => {
               Password
             </label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="password"
               name="password"
               required
-              className="mt-1 block w-full px-4 py-2 border border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900"
+              className="mt-1 block w-full px-4 py-2 pr-10 border border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900"
+            />
+            <img
+              src={showPassword ? showEyes : hideEyes}
+              alt="toggle password"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 mt-3 w-5 h-5 cursor-pointer"
+              onClick={() => setShowPassword(!showPassword)}
             />
           </div>
 
+          {/* Submit button */}
           <button
             type="submit"
             className="w-full py-2.5 rounded-lg bg-gradient-to-r from-green-600 to-green-500 text-white font-semibold shadow-lg hover:scale-[1.01] transition"
@@ -121,6 +134,7 @@ const Signup = () => {
           </button>
         </form>
 
+        {/* Already have an account */}
         <div className="mt-6 text-center text-sm">
           <a href="/login" className="text-gray-800 font-medium hover:underline">
             Already have an account? Log in

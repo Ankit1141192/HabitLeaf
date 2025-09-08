@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import bg from "../assets/herosection.jpg";
+import showEyes from "../assets/eye-show.svg";
+import hideEyes from "../assets/eye-hide.svg";
 
 export default function Login({ setIsAuthenticated }) {
   const [message, setMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -12,7 +15,7 @@ export default function Login({ setIsAuthenticated }) {
     const data = Object.fromEntries(formData);
 
     try {
-      const response = await fetch("http://localhost:4000/auth/login", {
+      const response = await fetch(`https://habitleaf.onrender.com/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -22,12 +25,11 @@ export default function Login({ setIsAuthenticated }) {
       console.log(result);
 
       if (response.ok) {
-        // ✅ Store login info (you can store token instead of true if backend returns it)
         localStorage.setItem("isAuthenticated", "true");
         setIsAuthenticated(true);
 
         setMessage("🎉 Login successful! Redirecting...");
-        setTimeout(() => navigate("/dashboard"), 1200); // redirect after 1.2s
+        setTimeout(() => navigate("/"), 1200);
       } else {
         setMessage(result.message || "❌ Invalid credentials");
       }
@@ -70,8 +72,12 @@ export default function Login({ setIsAuthenticated }) {
         )}
 
         <form onSubmit={handleLogin} className="space-y-4">
+          {/* Email field */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
               Email
             </label>
             <input
@@ -83,19 +89,30 @@ export default function Login({ setIsAuthenticated }) {
             />
           </div>
 
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+          {/* Password field with toggle icon */}
+          <div className="relative">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Password
             </label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="password"
               name="password"
               required
-              className="mt-1 block w-full px-4 py-2 border border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900"
+              className="mt-1 block w-full px-4 py-2 pr-10 border border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900"
+            />
+            <img
+              src={showPassword ? showEyes : hideEyes}
+              alt="toggle password"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 mt-3 cursor-pointer"
+              onClick={() => setShowPassword(!showPassword)}
             />
           </div>
 
+          {/* Submit button */}
           <button
             type="submit"
             className="w-full py-2.5 rounded-lg bg-gradient-to-r from-green-600 to-green-500 text-white font-semibold shadow-lg hover:scale-[1.01] transition"
@@ -104,12 +121,19 @@ export default function Login({ setIsAuthenticated }) {
           </button>
         </form>
 
+        {/* Extra links */}
         <div className="mt-6 text-center text-sm">
-          <a href="/signup" className="text-gray-800 font-medium hover:underline">
+          <a
+            href="/signup"
+            className="text-gray-800 font-medium hover:underline"
+          >
             Don't have an account? Sign up
           </a>
           <div className="flex justify-center gap-4 mt-3">
-            <a href="/forgot-password" className="text-gray-500 hover:text-green-600">
+            <a
+              href="/forgot-password"
+              className="text-gray-500 hover:text-green-600"
+            >
               Forgot password
             </a>
             <a href="/help" className="text-gray-500 hover:text-green-600">

@@ -1,21 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import bg from "../assets/herosection.jpg";
+import showEyes from "../assets/eye-show.svg";
+import hideEyes from "../assets/eye-hide.svg";
 
 const ForgotPassword = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleForgotPassword = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
 
     try {
-      const response = await fetch("http://localhost:4000/auth/forgot-password", {
+      const response = await fetch(`https://habitleaf.onrender.com/auth/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
       const result = await response.json();
       console.log(result);
-      // Show toast or confirmation "Reset link sent"
+      // Show toast or confirmation "Password reset successful"
     } catch (error) {
       console.error("Error:", error);
     }
@@ -27,33 +31,40 @@ const ForgotPassword = () => {
       style={{ backgroundImage: `url(${bg})` }}
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-white/70 backdrop-blur-m"></div>
+      <div className="absolute inset-0 bg-white/70 backdrop-blur-md"></div>
 
       <div className="relative z-10 max-w-md w-full bg-white/80 rounded-2xl shadow-xl p-8">
         <div className="text-center mb-6">
           <span className="inline-block bg-green-100 text-green-600 font-semibold px-3 py-1 rounded-full mb-3">
             HabitLeaf
           </span>
-          <h2 className="text-2xl font-bold text-gray-900">Forgot Password?</h2>
+          <h2 className="text-2xl font-bold text-gray-900">Forgot Password</h2>
           <p className="text-sm text-gray-500 mt-1">
-            Enter your email and we’ll send you a reset link
+           Enter your email to receive a reset link 🌱
           </p>
         </div>
 
         <form onSubmit={handleForgotPassword} className="space-y-4">
-          <div>
+          {/* Password Input with Show/Hide */}
+          <div className="relative">
             <label
-              htmlFor="email"
+              htmlFor="password"
               className="block text-sm font-medium text-gray-700"
             >
-              Email
+              Send Reset Link
             </label>
             <input
-              type="email"
-              id="email"
-              name="email"
+              type={showPassword ? "text" : "password"}
+              id="password"
+              name="password"
               required
               className="mt-1 block w-full px-4 py-2 border border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900"
+            />
+            <img
+              src={showPassword ? showEyes : hideEyes}
+              alt="toggle password"
+              className="absolute right-3 top-9 w-5 h-5 cursor-pointer"
+              onClick={() => setShowPassword(!showPassword)}
             />
           </div>
 
@@ -61,7 +72,7 @@ const ForgotPassword = () => {
             type="submit"
             className="w-full py-2.5 rounded-lg bg-gradient-to-r from-green-600 to-green-500 text-white font-semibold shadow-lg hover:scale-[1.01] transition"
           >
-            Send Reset Link
+            Reset Password
           </button>
         </form>
 

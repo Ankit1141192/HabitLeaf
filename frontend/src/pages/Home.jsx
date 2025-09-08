@@ -60,7 +60,7 @@ const Home = () => {
 
         <div className="flex flex-col md:flex-row justify-center gap-8 mt-10 px-4 md:px-0">
           {/* Card 1 */}
-          <div className="bg-green-600 bg-opacity-90 rounded-xl shadow-xl p-8 w-full md:w-1/4">
+          <div className="bg-green-600 bg-opacity-90 rounded-xl shadow-xl p-8 w-full md:w-1/4 transform transition duration-300 hover:scale-105 active:scale-95 cursor-pointer">
             <div className="bg-white/20 backdrop-blur-sm rounded-full p-5 border border-white/20 flex items-center justify-center mb-4 mx-auto w-16 h-16">
               <i className="ri-user-smile-line text-white text-2xl"></i>
             </div>
@@ -68,8 +68,9 @@ const Home = () => {
             <div className="text-gray-100 mt-1">Zero Waste Champion</div>
             <div className="text-yellow-300 font-bold mt-3">🔥 45 days</div>
           </div>
+
           {/* Card 2 */}
-          <div className="bg-green-600 bg-opacity-90 rounded-xl shadow-xl p-8 w-full md:w-1/4">
+          <div className="bg-green-600 bg-opacity-90 rounded-xl shadow-xl p-8 w-full md:w-1/4 transform transition duration-300 hover:scale-105 active:scale-95 cursor-pointer">
             <div className="bg-white/20 backdrop-blur-sm rounded-full p-5 border border-white/20 flex items-center justify-center mb-4 mx-auto w-16 h-16">
               <i className="ri-user-star-line text-white text-2xl"></i>
             </div>
@@ -77,8 +78,9 @@ const Home = () => {
             <div className="text-gray-100 mt-1">Green Transport Hero</div>
             <div className="text-yellow-300 font-bold mt-3">🔥 23 days</div>
           </div>
+
           {/* Card 3 */}
-          <div className="bg-green-600 bg-opacity-90 rounded-xl shadow-xl p-8 w-full md:w-1/4">
+          <div className="bg-green-600 bg-opacity-90 rounded-xl shadow-xl p-8 w-full md:w-1/4 transform transition duration-300 hover:scale-105 active:scale-95 cursor-pointer">
             <div className="bg-white/20 backdrop-blur-sm rounded-full p-5 border border-white/20 flex items-center justify-center mb-4 mx-auto w-16 h-16">
               <i className="ri-user-heart-line text-white text-2xl"></i>
             </div>
@@ -88,12 +90,14 @@ const Home = () => {
           </div>
         </div>
 
+
         <button
-          onClick={() => navigate('/community')} // useNavigate function for SPA navigation
-          className="mt-10 px-8 py-3 bg-white text-green-700 text-lg font-semibold rounded-full shadow hover:bg-green-50 transition"
+          onClick={() => navigate('/community')} // SPA navigation
+          className="mt-10 px-8 py-3 bg-white text-green-700 text-lg font-semibold rounded-full shadow transform transition duration-300 hover:scale-105 active:scale-95 cursor-pointer hover:bg-green-50"
         >
           Join Community →
         </button>
+
       </div>
     </div>
   );

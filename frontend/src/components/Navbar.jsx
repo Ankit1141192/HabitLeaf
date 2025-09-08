@@ -53,14 +53,14 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
 
           {!isAuthenticated ? (
             <NavLink to="/login">
-              <button className="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition">
+              <button className="bg-green-600 text-white px-6 transform transition duration-300 hover:scale-105 active:scale-95 cursor-pointer  py-2 rounded-full hover:bg-green-700 transition">
                 Sign In
               </button>
             </NavLink>
           ) : (
             <button
               onClick={() => setIsAuthenticated(false)}
-              className="bg-red-600 text-white px-6 py-2 rounded-full hover:bg-red-700 transition"
+              className="bg-red-600 text-white px-6 py-2  transform transition duration-300 hover:scale-105 active:scale-95 cursor-pointer rounded-full hover:bg-red-700 transition"
             >
               Logout
             </button>
@@ -101,7 +101,7 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
 
             {!isAuthenticated ? (
               <NavLink to="/login" onClick={() => setIsOpen(false)}>
-                <button className="w-full bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition">
+                <button className="w-full bg-green-600 transform transition duration-300 hover:scale-105 active:scale-95 cursor-pointer  text-white px-6 py-2 rounded-full hover:bg-green-700 transition">
                   Sign In
                 </button>
               </NavLink>
@@ -111,7 +111,7 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
                   setIsAuthenticated(false);
                   setIsOpen(false);
                 }}
-                className="w-full bg-red-600 text-white px-6 py-2 rounded-full hover:bg-red-700 transition"
+                className="w-full bg-red-600 text-white transform transition duration-300 hover:scale-105 active:scale-95 cursor-pointer px-6 py-2 rounded-full hover:bg-red-700 transition"
               >
                 Logout
               </button>

@@ -1,83 +1,52 @@
-// controllers/habitController.js
-import HabitTracker from "../models/HabitTracker.js";
+const Habit = require("../models/Habit");
 
-// Create a new habit
-export const createHabit = async (req, res) => {
+// Get all habits by user
+exports.getHabits = async (req, res) => {
   try {
-    const { userId, habitName } = req.body;
-
-    const habit = new HabitTracker({ userId, habitName });
-    await habit.save();
-
-    res.status(201).json({ success: true, data: habit });
+    const habits = await Habit.find({ userId: req.params.userId });
+    res.json(habits);
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    res.status(500).json({ message: "Server error" });
   }
 };
 
-// Get all habits for a user
-export const getHabits = async (req, res) => {
+// Create habit
+exports.createHabit = async (req, res) => {
   try {
-    const { userId } = req.params;
-    const habits = await HabitTracker.find({ userId });
-
-    res.status(200).json({ success: true, data: habits });
+    const { userId, text } = req.body;
+    const habit = new Habit({ userId, text });
+    const saved = await habit.save();
+    res.status(201).json(saved);
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    res.status(400).json({ message: err.message });
   }
 };
 
-// Toggle habit completion for today
-export const toggleHabit = async (req, res) => {
+// Update habit
+exports.updateHabit = async (req, res) => {
   try {
-    const { habitId } = req.params;
+    const habit = await Habit.findById(req.params.id);
+    if (!habit) return res.status(404).json({ message: "Habit not found" });
 
-    const habit = await HabitTracker.findById(habitId);
-    if (!habit) return res.status(404).json({ success: false, message: "Habit not found" });
+    habit.completed = req.body.completed ?? habit.completed;
+    habit.text = req.body.text ?? habit.text;
 
-    const today = new Date().toDateString();
-
-    // Check if already completed today
-    const existing = habit.history.find(
-      (h) => new Date(h.date).toDateString() === today
-    );
-
-    if (existing) {
-      existing.completed = !existing.completed;
-    } else {
-      habit.history.push({ date: new Date(), completed: true });
-      habit.lastCompleted = new Date();
-
-      // Update streak
-      const yesterday = new Date();
-      yesterday.setDate(yesterday.getDate() - 1);
-
-      if (
-        habit.history.some(
-          (h) => new Date(h.date).toDateString() === yesterday.toDateString()
-        )
-      ) {
-        habit.streak += 1;
-      } else {
-        habit.streak = 1;
-      }
-    }
-
-    await habit.save();
-    res.status(200).json({ success: true, data: habit });
+    const updated = await habit.save();
+    res.json(updated);
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    res.status(400).json({ message: err.message });
   }
 };
 
 // Delete habit
-export const deleteHabit = async (req, res) => {
+exports.deleteHabit = async (req, res) => {
   try {
-    const { habitId } = req.params;
-    await HabitTracker.findByIdAndDelete(habitId);
+    const habit = await Habit.findById(req.params.id);
+    if (!habit) return res.status(404).json({ message: "Habit not found" });
 
-    res.status(200).json({ success: true, message: "Habit deleted successfully" });
+    await habit.deleteOne();
+    res.json({ message: "Habit deleted" });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    res.status(500).json({ message: "Server error" });
   }
 };

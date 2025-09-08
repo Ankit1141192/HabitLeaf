@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import bg from "../assets/herosection.jpg";
+import showEyes from "../assets/eye-show.svg";
+import hideEyes from "../assets/eye-hide.svg";
 
 const ResetPassword = () => {
   const [message, setMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
   const { token } = useParams();
 
@@ -13,13 +17,13 @@ const ResetPassword = () => {
     const data = Object.fromEntries(formData);
 
     if (data.password !== data.confirmPassword) {
-      setMessage("Passwords do not match");
+      setMessage("❌ Passwords do not match");
       return;
     }
 
     try {
       const response = await fetch(
-        `http://localhost:4000/auth/reset-password/${token}`,
+        `https://habitleaf.onrender.com/auth/reset-password/${token}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -36,7 +40,7 @@ const ResetPassword = () => {
       }
     } catch (error) {
       console.error("Error:", error);
-      setMessage("Something went wrong. Try again later.");
+      setMessage("⚠️ Something went wrong. Try again later.");
     }
   };
 
@@ -61,7 +65,8 @@ const ResetPassword = () => {
         </div>
 
         <form onSubmit={handleResetPassword} className="space-y-4">
-          <div>
+          {/* New Password */}
+          <div className="relative">
             <label
               htmlFor="password"
               className="block text-sm font-medium text-gray-700"
@@ -69,15 +74,22 @@ const ResetPassword = () => {
               New Password
             </label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="password"
               name="password"
               required
-              className="mt-1 block w-full px-4 py-2 border border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900"
+              className="mt-1 block w-full px-4 py-2 pr-10 border border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900"
+            />
+            <img
+              src={showPassword ? showEyes : hideEyes}
+              alt="toggle password"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 mt-3 w-5 h-5 cursor-pointer"
+              onClick={() => setShowPassword(!showPassword)}
             />
           </div>
 
-          <div>
+          {/* Confirm Password */}
+          <div className="relative">
             <label
               htmlFor="confirmPassword"
               className="block text-sm font-medium text-gray-700"
@@ -85,14 +97,21 @@ const ResetPassword = () => {
               Confirm Password
             </label>
             <input
-              type="password"
+              type={showConfirmPassword ? "text" : "password"}
               id="confirmPassword"
               name="confirmPassword"
               required
-              className="mt-1 block w-full px-4 py-2 border border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900"
+              className="mt-1 block w-full px-4 py-2 pr-10 border border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900"
+            />
+            <img
+              src={showConfirmPassword ? showEyes : hideEyes}
+              alt="toggle confirm password"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 mt-3 w-5 h-5 cursor-pointer"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             />
           </div>
 
+          {/* Submit button */}
           <button
             type="submit"
             className="w-full py-2.5 rounded-lg bg-gradient-to-r from-green-600 to-green-500 text-white font-semibold shadow-lg hover:scale-[1.01] transition"

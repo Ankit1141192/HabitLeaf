@@ -1,11 +1,10 @@
-// models/Habit.js
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const habitSchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User", 
+      ref: "User",
       required: true,
     },
     text: {
@@ -26,4 +25,4 @@ const habitSchema = new mongoose.Schema(
 );
 
 const Habit = mongoose.model("Habit", habitSchema);
-export default Habit;
+module.exports = Habit;
