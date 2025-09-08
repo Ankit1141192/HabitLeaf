@@ -31,7 +31,6 @@ const Chart= () => {
   return (
     <div className="min-h-screen bg-green-50 flex items-center justify-center ">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl w-full">
-        {/* Left: Weekly Progress */}
         <div className="bg-white shadow-lg rounded-2xl p-6">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-bold">Weekly Progress</h2>

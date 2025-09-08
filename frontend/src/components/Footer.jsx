@@ -65,7 +65,7 @@ const Footer = () => {
 
       {/* Bottom Line */}
       <div className="border-t border-gray-800 mt-10 pt-4 text-center text-gray-500 text-xs">
-        © 2025 HabitLeaf. All rights reserved.
+        © 2025 HabitLeaf. All rights reserved Developed by Ankit Kumar.
       </div>
     </footer>
   );
