@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
-
-// pages
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import MyHabbit from "./pages/MyHabbit";
@@ -15,19 +13,30 @@ import ResetPassword from "./pages/ResetPassword";
 import Footer from "./components/Footer";
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    () => localStorage.getItem("isAuthenticated") === "true"
+  );
+
+  useEffect(() => {
+    localStorage.setItem("isAuthenticated", isAuthenticated);
+  }, [isAuthenticated]);
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
+      <Navbar
+        isAuthenticated={isAuthenticated}
+        setIsAuthenticated={setIsAuthenticated}
+      />
       <div className="p-1">
         <Routes>
-          {/* Public */}
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+          <Route
+            path="/login"
+            element={<Login setIsAuthenticated={setIsAuthenticated} />}
+          />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password/:token" element={<ResetPassword/>} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
 
           {/* Protected */}
           <Route
@@ -44,10 +53,10 @@ const App = () => {
           />
           <Route
             path="/achievements"
-            element={isAuthenticated ? <Achievements /> : <Navigate to="/login" />}
+            element={
+              isAuthenticated ? <Achievements /> : <Navigate to="/login" />
+            }
           />
-
-          {/* 404 */}
           <Route
             path="*"
             element={
@@ -56,7 +65,7 @@ const App = () => {
           />
         </Routes>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
