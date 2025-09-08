@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Footer from "./components/Footer";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -60,7 +61,7 @@ const App = () => {
           <Route
             path="*"
             element={
-              <h1 className="text-3xl text-center mt-20">404: Page Not Found</h1>
+              <NotFoundPage/>
             }
           />
         </Routes>
