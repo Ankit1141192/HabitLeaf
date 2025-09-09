@@ -58,12 +58,8 @@ const App = () => {
               isAuthenticated ? <Achievements /> : <Navigate to="/login" />
             }
           />
-          <Route
-            path="*"
-            element={
-              <NotFoundPage/>
-            }
-          />
+          {/* Catch-all */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
       <Footer />

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Menu, X } from "lucide-react"; // hamburger icons
+import { Menu, X } from "lucide-react";
 import leaf from "../assets/leaf.svg";
 
 const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {

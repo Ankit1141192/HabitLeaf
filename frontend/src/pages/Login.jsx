@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import bg from "../assets/herosection.jpg";
 import showEyes from "../assets/eye-show.svg";
 import hideEyes from "../assets/eye-hide.svg";
@@ -123,19 +123,19 @@ export default function Login({ setIsAuthenticated }) {
 
         {/* Extra links */}
         <div className="mt-6 text-center text-sm">
-          <a
-            href="/signup"
+          <Link
+            to="/signup"
             className="text-gray-800 font-medium hover:underline"
           >
             Don't have an account? Sign up
-          </a>
+          </Link>
           <div className="flex justify-center gap-4 mt-3">
-            <a
-              href="/forgot-password"
+            <Link
+              to="/forgot-password"
               className="text-gray-500 hover:text-green-600"
             >
               Forgot password
-            </a>
+            </Link>
             <a href="/help" className="text-gray-500 hover:text-green-600">
               Need help?
             </a>
