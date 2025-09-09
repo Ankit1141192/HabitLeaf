@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   LineChart,
   Line,
@@ -10,7 +10,7 @@ import {
 } from "recharts";
 import { Lightbulb } from "lucide-react";
 
-const data = [
+const weeklyData = [
   { day: "Mon", value: 80 },
   { day: "Tue", value: 100 },
   { day: "Wed", value: 60 },
@@ -20,6 +20,13 @@ const data = [
   { day: "Sun", value: 80 },
 ];
 
+const monthlyData = [
+  { day: "Week 1", value: 320 },
+  { day: "Week 2", value: 400 },
+  { day: "Week 3", value: 350 },
+  { day: "Week 4", value: 450 },
+];
+
 const habits = [
   { name: "Water Conservation", value: 28, total: 30, color: "bg-blue-500" },
   { name: "Energy Saving", value: 25, total: 30, color: "bg-green-500" },
@@ -27,24 +34,42 @@ const habits = [
   { name: "Transport", value: 18, total: 30, color: "bg-red-500" },
 ];
 
-const Chart= () => {
+const Chart = () => {
+  const [view, setView] = useState("week");
+
   return (
-    <div className="min-h-screen bg-green-50 flex items-center justify-center ">
+    <div className="min-h-screen bg-green-50 flex items-center justify-center">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl w-full">
+        {/* Left: Chart */}
         <div className="bg-white shadow-lg rounded-2xl p-6">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-bold">Weekly Progress</h2>
+            <h2 className="text-lg font-bold">Progress Overview</h2>
             <div className="flex space-x-2">
-              <button className="px-3 py-1 text-sm rounded-full bg-gray-100">
+              <button
+                className={`px-3 py-1 text-sm rounded-full ${
+                  view === "week"
+                    ? "bg-green-100 text-green-600 font-semibold"
+                    : "bg-gray-100"
+                }`}
+                onClick={() => setView("week")}
+              >
                 Week
               </button>
-              <button className="px-3 py-1 text-sm rounded-full bg-green-100 text-green-600 font-semibold">
+              <button
+                className={`px-3 py-1 text-sm rounded-full ${
+                  view === "month"
+                    ? "bg-green-100 text-green-600 font-semibold"
+                    : "bg-gray-100"
+                }`}
+                onClick={() => setView("month")}
+              >
                 Month
               </button>
             </div>
           </div>
+
           <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={data}>
+            <LineChart data={view === "week" ? weeklyData : monthlyData}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
               <XAxis dataKey="day" />
               <YAxis />

@@ -1,5 +1,7 @@
 import React from "react";
 import Chart from "../components/Chart";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const achievements = [
   { name: "7-Day Streak", icon: "🔥", achieved: true, color: "text-orange-500 bg-orange-100" },
@@ -11,6 +13,8 @@ const achievements = [
 ];
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-50 p-6 font-sans">
       {/* Header */}
@@ -61,9 +65,12 @@ const Dashboard = () => {
       <div className="mb-12">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-bold text-gray-800">Achievements</h2>
-          <a className="text-green-600 hover:underline font-medium cursor-pointer">
+          <Link
+            to="/achievements"
+            className="text-green-600 hover:underline font-medium cursor-pointer"
+          >
             View All
-          </a>
+          </Link>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
           {achievements.map((a) => (
@@ -73,7 +80,11 @@ const Dashboard = () => {
             >
               <span className="text-3xl mb-2">{a.icon}</span>
               <span className="font-semibold text-gray-800">{a.name}</span>
-              {a.achieved && <span className="text-green-600 text-sm font-medium mt-1">✓ Achieved</span>}
+              {a.achieved && (
+                <span className="text-green-600 text-sm font-medium mt-1">
+                  ✓ Achieved
+                </span>
+              )}
             </div>
           ))}
         </div>
@@ -81,7 +92,10 @@ const Dashboard = () => {
 
       {/* Action Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        <div className="bg-gradient-to-r from-green-400 to-green-600 text-white rounded-xl p-6 shadow hover:shadow-lg transition">
+        <div
+          className="bg-gradient-to-r from-green-400 to-green-600 text-white rounded-xl p-6 shadow hover:shadow-lg transition cursor-pointer"
+          onClick={() => navigate("/track")} // ✅ Example usage
+        >
           <h3 className="font-semibold mb-1">✓ Track Today’s Habits</h3>
           <p className="text-green-100 text-sm">Check off your daily eco-friendly actions</p>
         </div>
@@ -100,7 +114,9 @@ const Dashboard = () => {
         <span className="text-2xl mr-3">💡</span>
         <div>
           <b className="block mb-1">Tip</b>
-          <p className="text-gray-700">Focus on improving your transport habits to reach the next level!</p>
+          <p className="text-gray-700">
+            Focus on improving your transport habits to reach the next level!
+          </p>
         </div>
       </div>
     </div>

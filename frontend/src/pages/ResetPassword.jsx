@@ -33,14 +33,14 @@ const ResetPassword = () => {
 
       const result = await response.json();
       if (response.ok) {
-        setMessage("✅ Password reset successful! Redirecting to login...");
+        setMessage("Password reset successful! Redirecting to login...");
         setTimeout(() => navigate("/login"), 2000);
       } else {
-        setMessage(result.message || "❌ Error resetting password");
+        setMessage(result.message || "Error resetting password");
       }
     } catch (error) {
       console.error("Error:", error);
-      setMessage("⚠️ Something went wrong. Try again later.");
+      setMessage("Something went wrong. Try again later.");
     }
   };
 
@@ -110,8 +110,6 @@ const ResetPassword = () => {
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             />
           </div>
-
-          {/* Submit button */}
           <button
             type="submit"
             className="w-full py-2.5 rounded-lg bg-gradient-to-r from-green-600 to-green-500 text-white font-semibold shadow-lg hover:scale-[1.01] transition"

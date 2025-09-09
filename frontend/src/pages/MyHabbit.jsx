@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { CheckCircle, Trash2, Edit3, Flame, Calendar, X } from "lucide-react";
 import leaf from "../assets/leaf.svg";
+import share from "../assets/share1.svg";
 
 const categories = [
   "Water Conservation",
@@ -126,17 +127,23 @@ const MyHabit = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-100 via-green-50 to-emerald-100 p-6">
-      <div className="max-w-5xl mx-auto p-1 mt-16">
+      <div className="  mt-16">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10">
           <div className="text-center sm:text-left">
-            <h1 className="flex items-center gap-2 text-4xl font-extrabold text-gray-800">
-              <img src={leaf} alt="logo" className="w-10 h-10" />
-              My Eco Habits
-            </h1>
-            <p className="text-gray-600 mt-1">
-              Track your daily sustainable actions
-            </p>
+            <div className="flex items-center gap-3">
+              <img src={leaf} alt="logo" className="w-12 h-13" />
+              <div>
+                <h1 className="text-2xl font-semibold mb-1">
+
+                  My Eco Habits
+                </h1>
+                <p className="text-gray-600 mt-1">
+                  Track your daily sustainable actions
+                </p>
+              </div>
+            </div>
+
           </div>
           <button
             onClick={() => openModal()}
@@ -179,21 +186,19 @@ const MyHabit = () => {
               <div className="flex space-x-4">
                 <button
                   onClick={() => toggleComplete(habit.id)}
-                  className={`w-10 h-10 flex items-center justify-center rounded-full shadow-sm ${
-                    habit.completed
+                  className={`w-10 h-10 flex items-center justify-center rounded-full shadow-sm ${habit.completed
                       ? "bg-green-500 text-white"
                       : "border border-gray-300 text-gray-400"
-                  }`}
+                    }`}
                 >
                   <CheckCircle className="w-6 h-6" />
                 </button>
                 <div>
                   <p
-                    className={`text-lg font-medium ${
-                      habit.completed
+                    className={`text-lg font-medium ${habit.completed
                         ? "line-through text-green-600"
                         : "text-gray-800"
-                    }`}
+                      }`}
                   >
                     {habit.text}
                   </p>
@@ -207,9 +212,8 @@ const MyHabit = () => {
                     {habit.days.map((day, i) => (
                       <div
                         key={i}
-                        className={`w-5 h-5 rounded-lg ${
-                          day ? "bg-green-500" : "bg-gray-200"
-                        }`}
+                        className={`w-5 h-5 rounded-lg ${day ? "bg-green-500" : "bg-gray-200"
+                          }`}
                       ></div>
                     ))}
                   </div>
@@ -306,20 +310,7 @@ const MyHabit = () => {
           </p>
         </div>
         <button className="px-5 py-2 bg-white text-green-700 font-semibold rounded-lg shadow hover:bg-gray-100 flex items-center space-x-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-5 h-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M4 12v.01M12 20h.01M20 12h.01M12 4h.01M6.343 6.343l.707.707M17.657 6.343l-.707.707M6.343 17.657l.707-.707M17.657 17.657l-.707-.707M9 12a3 3 0 116 0 3 3 0 01-6 0z"
-            />
-          </svg>
+          <img src={share} alt="" className="w-7 h-7" />
           <span>Share Progress</span>
         </button>
       </div>

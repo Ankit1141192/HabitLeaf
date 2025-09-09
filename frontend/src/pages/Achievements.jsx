@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Trophy, Star, Calendar, Droplets, Users, Zap, Leaf, Bus, Award, Target, Flame, Globe } from 'lucide-react';
+import share from "../assets/share1.svg";
 
 const Achievements = () => {
   const [activeTab, setActiveTab] = useState('all-badges');
@@ -63,8 +64,8 @@ const Achievements = () => {
 
         <div className="mb-8">
           <div className="flex items-center space-x-2 mb-2">
-            <h1 className="text-3xl font-bold text-gray-900">Your Achievements</h1>
-            <Trophy className="w-8 h-8 text-yellow-500" />
+            <h1 className="text-2xl font-semibold mb-1">Your Achievements</h1>
+            <Trophy className="w-6 h-6 text-yellow-500" />
           </div>
           <p className="text-gray-600">Celebrate your eco-friendly milestones and track your progress</p>
         </div>
@@ -205,20 +206,7 @@ const Achievements = () => {
         </div>
       </div>
       <button className="mt-6 md:mt-0 px-6 py-3 bg-white text-green-700 font-semibold rounded-lg shadow hover:bg-gray-100 flex items-center space-x-2">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-5 h-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M4 12v.01M12 20h.01M20 12h.01M12 4h.01M6.343 6.343l.707.707M17.657 6.343l-.707.707M6.343 17.657l.707-.707M17.657 17.657l-.707-.707M9 12a3 3 0 116 0 3 3 0 01-6 0z"
-          />
-        </svg>
+       <img src={share} alt="" className="w-7 h-7" />
         <span>Share Achievements</span>
       </button>
     </div>
