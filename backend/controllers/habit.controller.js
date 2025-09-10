@@ -1,7 +1,6 @@
 const Habit = require("../models/Habit");
 const mongoose = require("mongoose");
 
-// Create a new habit
 const createHabit = async (req, res) => {
   try {
     const { text, title, category } = req.body;
@@ -26,8 +25,6 @@ const createHabit = async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 };
-
-// Get all habits for user
 const getHabits = async (req, res) => {
   try {
     const habits = await Habit.find({ user: req.user._id }).sort({ createdAt: -1 });
@@ -37,8 +34,6 @@ const getHabits = async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 };
-
-// Update habit
 const updateHabit = async (req, res) => {
   try {
     const { id } = req.params;
@@ -59,8 +54,6 @@ const updateHabit = async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 };
-
-// Delete habit
 const deleteHabit = async (req, res) => {
   try {
     const { id } = req.params;
@@ -74,19 +67,16 @@ const deleteHabit = async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 };
-
-// Toggle today's completion
 const toggleCompleteToday = async (req, res) => {
   try {
     const { id } = req.params;
     const habit = await Habit.findOne({ _id: id, user: req.user._id });
     if (!habit) return res.status(404).json({ msg: "Habit not found" });
 
-    const today = new Date().getDay(); // 0-6
+    const today = new Date().getDay();
     habit.days[today] = !habit.days[today];
     habit.completed = habit.days[today];
 
-    // Calculate streak
     let streak = 0;
     for (let i = 6; i >= 0; i--) { 
       if (habit.days[i]) streak++;
