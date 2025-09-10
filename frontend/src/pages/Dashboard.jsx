@@ -17,7 +17,6 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-50 p-6 font-sans">
-      {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10">
         <h1 className="text-4xl font-extrabold text-gray-800">
           EcoGoals 🌱
@@ -29,14 +28,10 @@ const Dashboard = () => {
           🔥 7 Day Streak
         </div>
       </div>
-
-      {/* Greeting */}
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-1">Welcome back, Ankit!</h2>
         <p className="text-gray-500">Here’s your eco-friendly progress overview:</p>
       </div>
-
-      {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
         {[
           { icon: "🌱", value: "7", label: "Current Streak", color: "text-green-500" },
@@ -94,7 +89,7 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         <div
           className="bg-gradient-to-r from-green-400 to-green-600 text-white rounded-xl p-6 shadow hover:shadow-lg transition cursor-pointer"
-          onClick={() => navigate("/track")} // ✅ Example usage
+          onClick={() => navigate("/track")}
         >
           <h3 className="font-semibold mb-1">✓ Track Today’s Habits</h3>
           <p className="text-green-100 text-sm">Check off your daily eco-friendly actions</p>

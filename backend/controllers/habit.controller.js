@@ -1,15 +1,21 @@
 const Habit = require("../models/Habit");
 const mongoose = require("mongoose");
 
+// Create a new habit
 const createHabit = async (req, res) => {
   try {
-    const { title, description, frequency, daysOfWeek } = req.body;
+    const { text, title, category } = req.body;
+
+    if (!text && !title) {
+      return res.status(400).json({ success: false, msg: "Habit name is required" });
+    }
 
     const habit = new Habit({
-      title,
-      description,
-      frequency,
-      daysOfWeek: daysOfWeek || [false, false, false, false, false, false, false],
+      text: text || title, // fallback
+      category: category || "General",
+      days: [false, false, false, false, false, false, false],
+      streak: 0,
+      completed: false,
       user: req.user._id
     });
 
@@ -21,6 +27,7 @@ const createHabit = async (req, res) => {
   }
 };
 
+// Get all habits for user
 const getHabits = async (req, res) => {
   try {
     const habits = await Habit.find({ user: req.user._id }).sort({ createdAt: -1 });
@@ -31,10 +38,12 @@ const getHabits = async (req, res) => {
   }
 };
 
+// Update habit
 const updateHabit = async (req, res) => {
   try {
     const { id } = req.params;
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ msg: "Invalid id" });
+    if (!mongoose.Types.ObjectId.isValid(id)) 
+      return res.status(400).json({ msg: "Invalid id" });
 
     const habit = await Habit.findOneAndUpdate(
       { _id: id, user: req.user._id },
@@ -50,6 +59,8 @@ const updateHabit = async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 };
+
+// Delete habit
 const deleteHabit = async (req, res) => {
   try {
     const { id } = req.params;
@@ -63,34 +74,27 @@ const deleteHabit = async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 };
+
+// Toggle today's completion
 const toggleCompleteToday = async (req, res) => {
   try {
     const { id } = req.params;
     const habit = await Habit.findOne({ _id: id, user: req.user._id });
     if (!habit) return res.status(404).json({ msg: "Habit not found" });
 
-    const today = new Date();
-    const todayStr = today.toISOString().slice(0,10);
+    const today = new Date().getDay(); // 0-6
+    habit.days[today] = !habit.days[today];
+    habit.completed = habit.days[today];
 
-    const doneToday = habit.completedDates.some(d => new Date(d).toISOString().slice(0,10) === todayStr);
-    if (doneToday) {
-      habit.completedDates = habit.completedDates.filter(d => new Date(d).toISOString().slice(0,10) !== todayStr);
-    } else {
-      habit.completedDates.push(today);
-    }
-    const uniqueDates = [...new Set(habit.completedDates.map(d => new Date(d).toISOString().slice(0,10)))];
-    uniqueDates.sort((a,b) => new Date(b) - new Date(a));
+    // Calculate streak
     let streak = 0;
-    let cur = new Date();
-    for (let d of uniqueDates) {
-      const diffDays = Math.floor((new Date(cur.toISOString().slice(0,10)) - new Date(d)) / (1000*60*60*24));
-      if (diffDays === streak) streak++;
+    for (let i = 6; i >= 0; i--) { 
+      if (habit.days[i]) streak++;
       else break;
     }
     habit.streak = streak;
-    habit.completedDates = habit.completedDates;
-    await habit.save();
 
+    await habit.save();
     res.json({ success: true, habit });
   } catch (err) {
     console.error(err);
@@ -98,4 +102,10 @@ const toggleCompleteToday = async (req, res) => {
   }
 };
 
-module.exports = { createHabit, getHabits, updateHabit, deleteHabit, toggleCompleteToday };
+module.exports = {
+  createHabit,
+  getHabits,
+  updateHabit,
+  deleteHabit,
+  toggleCompleteToday
+};

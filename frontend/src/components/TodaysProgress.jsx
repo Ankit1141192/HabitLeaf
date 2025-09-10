@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { CheckCircle, XCircle } from "lucide-react";
 
 const TodaysProgress = () => {
-  // Load habits from localStorage or fallback to defaults
   const [habits, setHabits] = useState(() => {
     const savedHabits = localStorage.getItem("habits");
     return savedHabits
@@ -15,13 +14,9 @@ const TodaysProgress = () => {
           { id: 5, text: "Plant a tree", completed: false },
         ];
   });
-
-  // Save habits whenever they change
   useEffect(() => {
     localStorage.setItem("habits", JSON.stringify(habits));
   }, [habits]);
-
-  // Toggle completion
   const toggleHabit = (id) => {
     setHabits((prev) =>
       prev.map((habit) =>
@@ -36,15 +31,12 @@ const TodaysProgress = () => {
 
   return (
     <div className="bg-white shadow-lg transform transition duration-300 hover:scale-105 active:scale-95 cursor-pointer rounded-2xl p-6 w-full max-w-md mx-auto mt-10">
-      {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-bold">Today's Progress</h2>
         <span className="bg-green-600 text-white px-3 py-1 rounded-full text-sm">
           {percentage}% Complete
         </span>
       </div>
-
-      {/* Habit List */}
       <ul className="space-y-3">
         {habits.map((habit) => (
           <li key={habit.id}>
@@ -74,7 +66,6 @@ const TodaysProgress = () => {
         ))}
       </ul>
 
-      {/* Summary */}
       <div className="mt-4 text-sm text-gray-600">
         {completedCount} of {habits.length} completed
       </div>

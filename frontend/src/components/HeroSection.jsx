@@ -8,19 +8,17 @@ const HeroSection = () => {
 
   return (
     <div className="relative w-full h-[600px] rounded-lg shadow-md overflow-hidden">
-      {/* Background Image */}
+     
       <img
         src={forest}
         alt="forest"
         className="w-full h-full object-cover"
       />
-
-      {/* Overlay */}
       <div className="absolute inset-0 bg-black/40"></div>
 
-      {/* Content */}
+      
       <div className="absolute inset-0 flex flex-col md:flex-row items-center justify-between px-10 md:px-20">
-        {/* Left Content */}
+      
         <div className="text-white max-w-xl text-center md:text-left">
           <span className="inline-block bg-green-600/90  transform transition duration-300 hover:scale-105 active:scale-95 cursor-pointer px-3 py-1 rounded-full text-sm font-medium mb-4">
             Make Sustainability a Daily Habit
@@ -44,8 +42,6 @@ const HeroSection = () => {
             </button>
           </div>
         </div>
-
-        {/* Right Content (Today's Progress) */}
         <div className="mt-10 md:mt-0 w-full max-w-sm">
           <TodaysProgress />
         </div>

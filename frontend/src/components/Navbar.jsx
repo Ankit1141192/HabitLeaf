@@ -16,7 +16,6 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
   return (
     <nav className="py-4 px-6 bg-white shadow-sm fixed top-0 left-0 w-full z-50">
       <div className="flex justify-between items-center max-w-7xl mx-auto">
-        {/* Logo */}
         <div className="flex items-center space-x-3">
           <img src={leaf} alt="logo" className="w-10 h-10 text-gray-900 " />
           <NavLink to="/">
@@ -26,8 +25,6 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
             </p>
           </NavLink>
         </div>
-
-        {/* Desktop Nav */}
         <div className="hidden md:flex space-x-8">
           {navLinks.map((link) => (
             <NavLink
@@ -43,8 +40,6 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
             </NavLink>
           ))}
         </div>
-
-        {/* Buttons (Desktop) */}
         <div className="hidden md:flex items-center space-x-4">
           <button className="bg-green-100 text-green-700 px-4 py-2 rounded-full flex items-center space-x-2 hover:bg-green-200 transition">
             <span>🔥</span>
@@ -66,16 +61,12 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
             </button>
           )}
         </div>
-
-        {/* Mobile Hamburger */}
         <div className="md:hidden">
           <button onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
       </div>
-
-      {/* Mobile Dropdown */}
       {isOpen && (
         <div className="md:hidden bg-white shadow-lg mt-4 rounded-lg p-4 space-y-4">
           {navLinks.map((link) => (

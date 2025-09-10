@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { CheckSquare, Calendar, Trophy } from "lucide-react";
 
 const Home = () => {
-  const navigate = useNavigate(); // useNavigate hook here
+  const navigate = useNavigate(); 
 
   const features = [
     {
@@ -92,7 +92,7 @@ const Home = () => {
 
 
         <button
-          onClick={() => navigate('/community')} // SPA navigation
+          onClick={() => navigate('/community')}
           className="mt-10 px-8 py-3 bg-white text-green-700 text-lg font-semibold rounded-full shadow transform transition duration-300 hover:scale-105 active:scale-95 cursor-pointer hover:bg-green-50"
         >
           Join Community →

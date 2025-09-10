@@ -6,14 +6,9 @@ export default function NotFoundPage() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center mt-5 bg-green-50 px-4">
-      {/* Main Card */}
       <div className="relative bg-white rounded-3xl shadow-2xl p-10 md:p-16 text-center max-w-xl w-full overflow-hidden">
-        
-        {/* Decorative Circle */}
         <div className="absolute -top-24 -right-24 w-64 h-64 bg-gradient-to-r from-green-400 to-green-600 rounded-full opacity-30"></div>
         <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-gradient-to-r from-green-300 to-green-500 rounded-full opacity-30"></div>
-        
-        {/* Illustration */}
         <div className="mb-6">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -30,17 +25,11 @@ export default function NotFoundPage() {
             />
           </svg>
         </div>
-
-        {/* Title */}
         <h1 className="text-6xl md:text-7xl font-extrabold text-gray-900 mb-4">404</h1>
         <h2 className="text-2xl md:text-3xl font-semibold text-gray-700 mb-4">Oops! Page Not Found</h2>
-
-        {/* Description */}
         <p className="text-gray-500 mb-8">
           The page you’re looking for might have been removed, had its name changed, or is temporarily unavailable.
         </p>
-
-        {/* Button */}
         <button
           onClick={() => navigate("/")}
           className="inline-flex items-center space-x-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl shadow-lg transition-all transform hover:-translate-y-1 hover:scale-105"
@@ -49,10 +38,8 @@ export default function NotFoundPage() {
           <span>Go Back Home</span>
         </button>
       </div>
-
-      {/* Footer Text */}
       <p className="mt-8 text-sm text-gray-400">
-        © {new Date().getFullYear()} EcoGoals. All rights reserved.
+        © {new Date().getFullYear()} HabitLeaf. All rights reserved.
       </p>
     </div>
   );
