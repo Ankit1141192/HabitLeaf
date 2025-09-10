@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 });
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
-app.use("/habits", habitRoutes);
+app.use("/auth/habits", habitRoutes);
 
 
 app.use((req, res) => {

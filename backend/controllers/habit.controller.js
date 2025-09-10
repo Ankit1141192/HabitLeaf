@@ -74,7 +74,6 @@ const toggleCompleteToday = async (req, res) => {
 
     const doneToday = habit.completedDates.some(d => new Date(d).toISOString().slice(0,10) === todayStr);
     if (doneToday) {
-      // remove today's date
       habit.completedDates = habit.completedDates.filter(d => new Date(d).toISOString().slice(0,10) !== todayStr);
     } else {
       habit.completedDates.push(today);
