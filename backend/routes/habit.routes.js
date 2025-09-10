@@ -1,16 +1,19 @@
 const express = require("express");
 const {
-  getHabits,
   createHabit,
+  getHabits,
   updateHabit,
   deleteHabit,
-} = require("../controllers/habitController");
+  toggleCompleteToday
+} = require("../controllers/habit.controller");
+const authenticateJWT = require("../middlewares/authenticateJWT");
 
 const router = express.Router();
 
-router.get("/:userId", getHabits);
-router.post("/", createHabit);
-router.put("/:id", updateHabit);
-router.delete("/:id", deleteHabit);
+router.post("/", authenticateJWT, createHabit);
+router.get("/", authenticateJWT, getHabits);
+router.put("/:id", authenticateJWT, updateHabit);
+router.delete("/:id", authenticateJWT, deleteHabit);
+router.post("/:id/toggle", authenticateJWT, toggleCompleteToday);
 
 module.exports = router;
